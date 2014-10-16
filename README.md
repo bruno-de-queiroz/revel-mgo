@@ -1,4 +1,7 @@
-revel-mgo
+revel-mgo 
+
+Original revmgo: https://github.com/jgraham909/revmgo
+
 ======
 
 mgo module for revel framework
