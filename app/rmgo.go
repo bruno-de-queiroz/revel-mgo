@@ -1,4 +1,4 @@
-package mgo
+package rmgo
 
 import (
 	"fmt"

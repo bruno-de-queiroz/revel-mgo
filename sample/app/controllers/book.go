@@ -8,7 +8,7 @@ import (
 
 type Book struct {
 	*revel.Controller
-	mgo.MongoController
+	rmgo.MongoController
 }
 
 func (c Book) Index() revel.Result {

@@ -12,7 +12,7 @@ type AppTest struct {
 
 func (t *AppTest) Before() {
 	// Make sure our collection is clean
-	models.Collection(mgo.Database).DropCollection()
+	models.Collection(rmgo.Database).DropCollection()
 }
 
 func (t AppTest) TestThatIndexPageWorks() {
@@ -25,8 +25,8 @@ func (t AppTest) TestThatIndexPageWorks() {
 func (t AppTest) TestSave() {
 	b := models.GetBook("MobyDick")
 	t.AssertEqual("Moby Dick", b.Title)
-	b.Save(mgo.Database)
-	d := models.FindByObjectId(mgo.Database, b.Id)
+	b.Save(rmgo.Database)
+	d := models.FindByObjectId(rmgo.Database, b.Id)
 	t.AssertEqual(b.Title, d.Title)
 	t.AssertEqual(b.Id, d.Id)
 	t.AssertEqual(b.Body, d.Body)
@@ -35,5 +35,5 @@ func (t AppTest) TestSave() {
 
 func (t *AppTest) After() {
 	// Cleanup any mess we made
-	models.Collection(mgo.Database).DropCollection()
+	models.Collection(rmgo.Database).DropCollection()
 }
