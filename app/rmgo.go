@@ -28,9 +28,9 @@ type MongoConfig struct {
 
 func Init() {
 	// Read configuration.
-	h := revel.Config.StringDefault("mgo.host", "localhost")
-	m := revel.Config.StringDefault("mgo.method", "clone")
-	d := revel.Config.StringDefault("mgo.database", "test")
+	h := revel.Config.StringDefault("rmgo.host", "localhost")
+	m := revel.Config.StringDefault("rmgo.method", "clone")
+	d := revel.Config.StringDefault("rmgo.database", "test")
 
 	Config = &MongoConfig{h, m, d}
 
@@ -94,9 +94,7 @@ func Dial() error {
 		m = Session.Copy
 	case "new":
 		m = Session.New
-	}
-
-	if m == nil {
+	default:
 		revel.WARN.Printf("Method %s is not allowed.", Config.Method)
 		Config.Method = "clone"
 		m = Session.Clone
