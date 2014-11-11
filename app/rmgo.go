@@ -29,6 +29,9 @@ type MongoConfig struct {
 func Init() {
 	// Read configuration.
 	h := revel.Config.StringDefault("rmgo.host", "localhost")
+
+	fmt.Println(h)
+
 	m := revel.Config.StringDefault("rmgo.method", "clone")
 	d := revel.Config.StringDefault("rmgo.database", "test")
 
@@ -110,7 +113,6 @@ func Dial() error {
 type MongoController struct {
 	*revel.Controller
 	MongoSession *mgo.Session
-	Database     *mgo.Database
 }
 
 // Connect to mgo if we haven't already and return a copy/new/clone of the session
@@ -127,7 +129,6 @@ func (m *MongoController) Begin() revel.Result {
 
 	// Calls Clone(), Copy() or New() depending on the configuration
 	m.MongoSession = Duplicate()
-	m.Database = m.MongoSession.DB(Config.Db)
 
 	return nil
 
@@ -140,7 +141,6 @@ func (m *MongoController) End() revel.Result {
 	// were a nil pointer and panic
 	if m.MongoSession != nil {
 		m.MongoSession.Close()
-		m.Database = nil
 	}
 
 	return nil
